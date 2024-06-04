@@ -3,19 +3,91 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Vanessa's Blog</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
   <body>
   <section class="section">
-    <div class="container">
-      <h1 class="title">
-        Hello World
-      </h1>
-      <p class="subtitle">
-        My first website with <strong>Bulma</strong>!
-      </p>
+    <!-- Title -->
+        <div class="column has-background-link-dark is-full-hd">
+            <h1 class="title is-8 has-text-primary mt-5">
+                My First Blog
+            </h1>
+            
+        <!-- Navbar -->
+          <nav class="navbar is-fixed-top is-fullwidth">
+            <div class="navbarmenu has-background-info-dark">
+              <ul class="navbar-end tabs is-fullwidth">
+                  <li class="navbar-item has-background-info-dark"><a href="./index.html">Home</a></li>
+                  <li class="navbar-item"><a href="./blog.html">Blog</a></li>
+              </ul>
+          </div> 
+          </nav>
+ 
+        </div>
+
+    <!-- Post Form -->
+        <form class="column is-pulled-right has-background-link-dark" onsubmit="return validateMyForm();" id="form">
+          <!-- Username -->
+            <label for="username">Username: </label><br>
+
+            <div class="control has-icons-left">
+              <input class="input is-info is-rounded" placeholder="Your Username" type="text" name="username" id="username">
+              <span class="icon is-small is-left has-text-primary">
+                <i class="far fa-user"></i>
+              </span>
+            </div><br>
+            
+          <!-- Title -->
+            <label for="title">Title</label><br>
+            <div class="control has-icons-left">
+              <input class="input is-info is-rounded" placeholder="Your Title" type="text" name="title" id="title">
+            <span class="icon is-small is-left has-text-primary">
+              <i class="far fa-flag"></i>
+            </span>
+          </div><br>
+          <!-- Post -->
+            <label for="post">Post: </label><br>
+            <div class="control has-icons-left">
+              <input class="textarea is-info has-text-centered" placeholder="Your Post" type="text" name="post" id="post">
+            <span class="icon is-small is-left has-text-primary">
+              <i class="far fa-comment"></i>
+            </span>
+          </div>
+          <!-- Submit -->
+            <input onclick=checkPostElements() class="button is-small has-background-info-dark mt-3" type="submit" value="Submit" id="submitError"><br>
+        </form>
+      
     </div>
   </section>
+  <script src="./assets/js/form.js"></script>
+  <script>
+    // The saveBlogPost function is saving the post by getting the values of each part of the post and saving it to their namesake.
+    function saveBlogPost() {
+        const blogPost = {
+            username: document.getElementById('username').value,
+            title: document.getElementById('title').value,
+            post: document.getElementById('post').value
+        };
+        // Below saves the post's data we have collected in the form of JSON
+        localstorage.setItem('blogPost', JSON.stringify(blogPost));
+    }
+    // In order to retrieve the post to display on the blog, loadBlogPost function gets the data from local storage
+
+    function loadBlogPost() {
+        const savedPost = localStorage.getItem(blogPost);
+    }
+    
+    const submitError = document.getElementById('submitError')
+    submitError.addEventListener("click", function checkPostElements() {
+      if (document.getElementById('username').value == '' || document.getElementById('title').value == '' || document.getElementById('post').value == '')
+      {
+        alert('Please add a Username, Title, and Post.');
+        preventDefault();
+      }
+    });
+  </script>
   </body>
 </html>
